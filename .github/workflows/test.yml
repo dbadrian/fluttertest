@@ -25,17 +25,10 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: true
-          tags: user/app:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      # - name: Build docker images
-      #   run: docker buildx build --network=host -t archdev .
-      - name: Build archpkgs
-        run: docker run -v $(pwd):/build --rm user/app  /bin/bash -c "cd /build && makepkg -s"
-      # - name: Create Release
-      #   uses: ncipollo/release-action@v1
-      #   with:
-      #     artifacts: "*tar.gz"
-      #     token: ${{ secrets.GITHUB_TOKEN }}
+      # # - name: Build docker images
+      # #   run: docker buildx build --network=host -t archdev .
+      # - name: Build archpkgs
+      #   run: docker run -v $(pwd):/build --rm user/app  /bin/bash -c "cd /build && makepkg -s"
