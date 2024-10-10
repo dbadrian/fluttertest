@@ -23,7 +23,7 @@ RUN git clone https://aur.archlinux.org/yay.git \
     && cd yay \
     && makepkg -si --noconfirm 
 
-# RUN yay -S --noconfirm flutter libsecret
+RUN yay -S --noconfirm flutter libsecret
 
 # # Copy the PKGBUILD and any necessary files to the container
 # COPY PKGBUILD /build/PKGBUILD
