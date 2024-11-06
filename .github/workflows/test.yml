@@ -28,7 +28,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      # # - name: Build docker images
-      # #   run: docker buildx build --network=host -t archdev .
-      # - name: Build archpkgs
-      #   run: docker run -v $(pwd):/build --rm user/app  /bin/bash -c "cd /build && makepkg -s"
+      # - name: Build docker images
+      #   run: docker buildx build --network=host -t archdev .
+      - name: Build archpkgs
+        run: docker run -v $(pwd):/build --rm user/app  /bin/bash -c "cd /build && makepkg -s"
