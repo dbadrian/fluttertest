@@ -31,8 +31,9 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          tags: buildimg:latest
           context: .
+          push: true
+          tags: user/app:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
