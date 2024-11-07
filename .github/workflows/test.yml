@@ -15,11 +15,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
-      registry:
-        image: registry:2
-        ports:
-          - 5000:5000
+    # services:
+    #   registry:
+    #     image: registry:2
+    #     ports:
+    #       - 5000:5000
     steps:
       - uses: actions/checkout@v3
 
@@ -32,12 +32,12 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: localhost:5000/user/app:latest
+          tags: buildimg:latest
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      # - name: Build docker images
-      #   run: docker buildx build --network=host -t archdev .
+      # # - name: Build docker images
+      # #   run: docker buildx build --network=host -t archdev .
       - name: Build archpkgs
-        run: docker run -v $(pwd):/build --rm localhost:5000/user/app:latest  /bin/bash -c "cd /build && makepkg -s"
+        run: docker run -v $(pwd):/build --rm buildimg:latest  /bin/bash -c "cd /build && makepkg -s"

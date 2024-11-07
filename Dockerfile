@@ -25,8 +25,8 @@ RUN git clone https://aur.archlinux.org/yay.git \
 
 RUN yay -S --noconfirm flutter libsecret
 
-# # Copy the PKGBUILD and any necessary files to the container
-# COPY PKGBUILD /build/PKGBUILD
+# Copy the PKGBUILD and any necessary files to the container
+COPY PKGBUILD /build/PKGBUILD
 
 # # Prepare the build environment and build the package
 # RUN cd /build && makepkg -si --noconfirm
