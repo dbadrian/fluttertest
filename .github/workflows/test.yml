@@ -28,17 +28,18 @@ jobs:
         with:
           driver-opts: network=host
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          tags: makepkg:latest
-          # labels: ${{ steps.dockermeta.outputs.labels }}
-          push: true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+      # - name: Build and push Docker image
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: .
+      #     tags: makepkg:latest
+      #     # labels: ${{ steps.dockermeta.outputs.labels }}
+      #     push: true
+      #     cache-from: type=local,src=/tmp/.buildx-cache
+      #     cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
-      # # - name: Build docker images
-      # #   run: docker buildx build --network=host -t archdev .
+      - name: Build docker images
+        run: docker buildx build --network=host -t archdev .
+
       - name: Build archpkgs
         run: docker run -v $(pwd):/build --rm buildimg:latest  /bin/bash -c "cd /build && makepkg -s"

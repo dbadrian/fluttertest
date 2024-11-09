@@ -16,23 +16,21 @@ RUN useradd -m builduser && \
 USER builduser
 WORKDIR /home/builduser
 
-
-
-
 RUN git clone https://aur.archlinux.org/yay.git \
     && cd yay \
     && makepkg -si --noconfirm 
 
-RUN yay -S --noconfirm flutter libsecret
+RUN yay -Sy && yay -S --noconfirm flutter-bin libsecret
+RUN yay -S --noconfirm gtk3 pkgconf
 
 # Copy the PKGBUILD and any necessary files to the container
-COPY PKGBUILD /build/PKGBUILD
+COPY PKGBUILD /home/builduser/PKGBUILD
 
 # # # Prepare the build environment and build the package
-# # RUN cd /build && makepkg -si --noconfirm
+RUN cd /home/builduser && makepkg -si --noconfirm
 
 # # Default command to keep the container running or explore the container
-CMD ["/bin/bash"]
+# CMD ["/bin/bash"]
 
 # COPY entrypoint.sh /entrypoint.sh
 
