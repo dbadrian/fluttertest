@@ -40,7 +40,7 @@ jobs:
       - name: Build docker images
         run: |
           docker build --network=host -t archdev .
-          docker run -v $(pwd):/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
+          docker run -v ${{ github.workspace }}:/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
 
 
 
