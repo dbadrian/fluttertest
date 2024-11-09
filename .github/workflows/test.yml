@@ -42,4 +42,5 @@ jobs:
         run: docker buildx build --network=host -t archdev .
 
       - name: Build archpkgs
-        run: docker run -v $(pwd):/build --rm buildimg:latest  /bin/bash -c "cd /build && makepkg -s"
+        run: docker run -v $(pwd):/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
+
