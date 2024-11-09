@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          # tags: ${{ steps.dockermeta.outputs.tags }}
+          tags: makepkg:latest
           # labels: ${{ steps.dockermeta.outputs.labels }}
           push: true
           cache-from: type=local,src=/tmp/.buildx-cache
