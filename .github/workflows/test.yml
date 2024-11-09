@@ -40,7 +40,8 @@ jobs:
       - name: Build docker images
         run: |
           docker build --network=host -t archdev .
-          docker run -v ${{ github.workspace }}:/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
+          chmod 777 ${{ runner.temp }}
+          docker run -v ${{ runner.temp }}:/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
 
 
 
