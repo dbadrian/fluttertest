@@ -15,11 +15,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # services:
-    #   registry:
-    #     image: registry:2
-    #     ports:
-    #       - 5000:5000
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
 
@@ -43,7 +40,13 @@ jobs:
           chmod 777 ${{ runner.temp }}
           docker run -v ${{ runner.temp }}:/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
 
+      - name: Create Release
+        uses: ncipollo/release-action@v1
 
+        with:
+          artifacts: "${{ runner.temp }}/*"
+          # token: ${{ secrets.GITHUB_TOKEN }}
+        
 
       # - name: Build archpkgs
       #   run: docker run -v $(pwd):/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
