@@ -34,8 +34,8 @@ jobs:
           context: .
           tags: archdev
           # push: true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       # - name: Build docker images
       #   run: |
@@ -44,5 +44,5 @@ jobs:
 
 
 
-      # - name: Build archpkgs
-      #   run: docker run -v $(pwd):/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
+      - name: Build archpkgs
+        run: docker run -v $(pwd):/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
