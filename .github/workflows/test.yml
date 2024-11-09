@@ -32,10 +32,11 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          # tags: ${{ steps.dockermeta.outputs.tags }}
+          # labels: ${{ steps.dockermeta.outputs.labels }}
           push: true
-          tags: user/app:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
       # # - name: Build docker images
       # #   run: docker buildx build --network=host -t archdev .
