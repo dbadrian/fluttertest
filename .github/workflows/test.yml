@@ -28,21 +28,21 @@ jobs:
         with:
           driver-opts: network=host
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          tags: archdev
-          # push: true
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+      # - name: Build and push Docker image
+      #   uses: docker/build-push-action@v6
+      #   with:
+      #     context: .
+      #     tags: archdev
+      #     # push: true
+      #     cache-from: type=gha
+      #     cache-to: type=gha,mode=max
 
-      # - name: Build docker images
-      #   run: |
-      #     docker buildx build --network=host -t archdev .
-      #     docker run -v $(pwd):/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
+      - name: Build docker images
+        run: |
+          docker build --network=host -t archdev .
+          docker run -v $(pwd):/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
 
 
 
-      - name: Build archpkgs
-        run: docker run -v $(pwd):/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
+      # - name: Build archpkgs
+      #   run: docker run -v $(pwd):/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
