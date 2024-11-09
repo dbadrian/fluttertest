@@ -39,8 +39,11 @@ jobs:
       #     cache-to: type=local,dest=/tmp/.buildx-cache-new,mode=max
 
       - name: Build docker images
-        run: docker buildx build --network=host -t archdev .
+        run: |
+          docker buildx build --network=host -t archdev .
+          docker run -v $(pwd):/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
 
-      - name: Build archpkgs
-        run: docker run -v $(pwd):/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
 
+
+      # - name: Build archpkgs
+      #   run: 
