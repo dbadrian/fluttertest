@@ -1,18 +1,10 @@
 name: Backend & Frontend Test
 
+
 on:
   push:
-    # This should disable running the workflow on tags, according to the
-    # on.<push|pull_request>.<branches|tags> GitHub Actions docs.
-    # cheers @ https://github.com/psycopg/psycopg/blob/5681de9c42f916d5b2436ad9c6f47b79c8aeaa12/.github/workflows/tests.yml#L4-L8
-    branches:
-      - "*"
     tags:
       - "v*.*.*"
-  pull_request:
-      branches: [main]
-
-  workflow_call:
 
 jobs:
   build:
@@ -37,8 +29,10 @@ jobs:
       #     cache-to: type=gha,mode=max
 
       - name: Build docker images
+        env:
+          GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
         run: |
-          docker build --network=host -t archdev .
+          docker build --build-arg GPGKEY=$GPG_SIGNING_KEY --network=host -t archdev .
           chmod 777 ${{ runner.temp }}
           docker run -v ${{ runner.temp }}:/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
 
@@ -46,7 +40,7 @@ jobs:
         uses: ncipollo/release-action@v1
 
         with:
-          artifacts: "${{ runner.temp }}/*"
+          artifacts: "${{ runner.temp }}/*.pkg.tar.zst,PKGBUILD"
           # token: ${{ secrets.GITHUB_TOKEN }}
         
 

@@ -1,5 +1,6 @@
 FROM archlinux:latest
 
+ARG GPGKEY=""
 
 RUN pacman -Sy \
     && pacman -S --noconfirm base-devel git go npm yarn sudo
@@ -26,8 +27,12 @@ RUN yay -S --noconfirm gtk3 pkgconf
 # Copy the PKGBUILD and any necessary files to the container
 COPY PKGBUILD /home/builduser/PKGBUILD
 
-# # # Prepare the build environment and build the package
-RUN cd /home/builduser && makepkg -si --noconfirm
+RUN echo 'PACKAGER="David B. Adrian <dawidh.adrian@gmail.com>"' >> /etc/makepkg.conf \
+    echo 'GPGKEY="4ABA106821FC33C2"' >> /etc/makepkg.conf \
+    echo -n "$GPGKEY" | base64 --decode | gpg --importgpg --import
+
+# Prepare the build environment and build the package
+RUN cd /home/builduser && makepkg -si --noconfirm --sign
 
 # # Default command to keep the container running or explore the container
 # CMD ["/bin/bash"]
