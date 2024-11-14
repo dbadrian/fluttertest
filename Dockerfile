@@ -17,8 +17,8 @@ RUN useradd -m builduser && \
 USER builduser
 WORKDIR /home/builduser
 
-RUN echo -n "$GPGKEY" | base64 --decode | gpg --import \
-    pacman-key --recv-keys 4ABA106821FC33C2
+RUN echo -n "$GPGKEY" | base64 --decode | gpg --import
+RUN pacman-key --recv-keys 4ABA106821FC33C2
 
 RUN git clone https://aur.archlinux.org/yay.git \
     && cd yay \
