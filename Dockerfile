@@ -13,13 +13,9 @@ RUN pacman -Sy \
 RUN useradd -m builduser && \
     echo 'builduser ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-RUN echo 'PACKAGER="David B. Adrian <dawidh.adrian@gmail.com>"' >> /etc/makepkg.conf \
-    echo 'GPGKEY="4ABA106821FC33C2"' >> /etc/makepkg.conf
-
 # Switch to the build user
 USER builduser
 WORKDIR /home/builduser
-
 
 RUN echo -n "$GPGKEY" | base64 --decode | gpg --import
 
@@ -34,7 +30,15 @@ RUN yay -S --noconfirm gtk3 pkgconf
 COPY PKGBUILD /home/builduser/PKGBUILD
 
 # Prepare the build environment and build the package
+USER root
+RUN echo 'PACKAGER="David B. Adrian <dawidh.adrian@gmail.com>"' >> /etc/makepkg.conf \
+    echo 'GPGKEY="4ABA106821FC33C2"' >> /etc/makepkg.conf
+
+# Switch to the build user
+USER builduser
+
 RUN cd /home/builduser && makepkg -si --noconfirm --sign
+
 
 # # Default command to keep the container running or explore the container
 # CMD ["/bin/bash"]
