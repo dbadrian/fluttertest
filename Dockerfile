@@ -38,7 +38,7 @@ RUN echo 'PACKAGER="David B. Adrian <dawidh.adrian@gmail.com>"' >> /etc/makepkg.
 # Switch to the build user
 USER builduser
 RUN sudo pacman-key --init && sudo pacman-key --populate \
-    && sudo pacman-key --finger 1234ABCD09876 \
+    && sudo pacman-key --finger 4ABA106821FC33C2 \
     && sudo pacman-key --recv-keys 4ABA106821FC33C2 \
     && sudo pacman-key --lsign-key 4ABA106821FC33C2
 
