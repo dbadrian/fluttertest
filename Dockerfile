@@ -1,6 +1,6 @@
 FROM archlinux:latest
 
-ARG GPGKEYY=""
+ARG GPGKEY=""
 
 RUN pacman -Sy \
     && pacman -S --noconfirm base-devel git go npm yarn sudo
@@ -17,7 +17,7 @@ RUN useradd -m builduser && \
 USER builduser
 WORKDIR /home/builduser
 
-RUN echo -n "$GPGKEYY" | base64 --decode | gpg --import
+RUN echo -n "$GPGKEY" | base64 --decode | gpg --import
 
 RUN git clone https://aur.archlinux.org/yay.git \
     && cd yay \
