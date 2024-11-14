@@ -42,7 +42,7 @@ RUN sudo pacman-key --init && sudo pacman-key --populate \
     && sudo pacman-key --recv-keys 4ABA106821FC33C2 \
     && sudo pacman-key --lsign-key 4ABA106821FC33C2
 
-RUN cd /home/builduser && makepkg -sr --noconfirm --sign
+RUN cd /home/builduser && makepkg -sr --noconfirm && gpg --detach-sign --no-armor *.pkg.tar.zst
 
 
 # # Default command to keep the container running or explore the container
