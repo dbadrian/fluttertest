@@ -32,7 +32,8 @@ COPY PKGBUILD /home/builduser/PKGBUILD
 # Prepare the build environment and build the package
 USER root
 RUN echo 'PACKAGER="David B. Adrian <dawidh.adrian@gmail.com>"' >> /etc/makepkg.conf && \
-    echo 'GPGKEY="4ABA106821FC33C2"' >> /etc/makepkg.conf
+    echo 'GPGKEY="4ABA106821FC33C2"' >> /etc/makepkg.conf && \
+    cat /etc/makepkg.conf
     
 # Switch to the build user
 USER builduser
