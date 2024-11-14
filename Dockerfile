@@ -11,8 +11,8 @@ RUN pacman -Sy \
 
 # Set up a build user (to avoid building packages as root)
 RUN useradd -m builduser && \
-    echo 'builduser ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
-    echo 'PACKAGER="David B. Adrian <dawidh.adrian@gmail.com>"' >> /etc/makepkg.conf \
+    echo 'builduser ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+RUN echo 'PACKAGER="David B. Adrian <dawidh.adrian@gmail.com>"' >> /etc/makepkg.conf \
     echo 'GPGKEY="4ABA106821FC33C2"' >> /etc/makepkg.conf
 
 # Switch to the build user
