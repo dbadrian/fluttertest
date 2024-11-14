@@ -31,12 +31,13 @@ COPY PKGBUILD /home/builduser/PKGBUILD
 
 # Prepare the build environment and build the package
 USER root
-RUN echo 'PACKAGER="David B. Adrian <dawidh.adrian@gmail.com>"' >> /etc/makepkg.conf \
+RUN echo 'PACKAGER="David B. Adrian <dawidh.adrian@gmail.com>"' >> /etc/makepkg.conf && \
     echo 'GPGKEY="4ABA106821FC33C2"' >> /etc/makepkg.conf
     
 # Switch to the build user
 USER builduser
-RUN sudo pacman-key --recv-keys 4ABA106821FC33C2
+RUN sudo pacman-key --init && pacman-key --populate \
+    && sudo pacman-key --recv-keys 4ABA106821FC33C2
 
 RUN cd /home/builduser && makepkg -si --noconfirm --sign
 
