@@ -40,7 +40,7 @@ jobs:
         uses: ncipollo/release-action@v1
 
         with:
-          artifacts: "${{ runner.temp }}/*.pkg.tar.zst,PKGBUILD"
+          artifacts: "${{ runner.temp }}/*.pkg.tar.zst,${{ runner.temp }}/*.pkg.tar.zst.sig"
           # token: ${{ secrets.GITHUB_TOKEN }}
         
 
