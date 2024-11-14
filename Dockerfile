@@ -1,6 +1,6 @@
 FROM archlinux:latest
 
-ARG GPGKEY=""
+ARG GPGKEYY=""
 
 RUN pacman -Sy \
     && pacman -S --noconfirm base-devel git go npm yarn sudo
@@ -17,7 +17,7 @@ RUN useradd -m builduser && \
 USER builduser
 WORKDIR /home/builduser
 
-RUN echo -n "$GPGKEY" | base64 --decode | gpg --import
+RUN echo -n "$GPGKEYY" | base64 --decode | gpg --import
 
 RUN git clone https://aur.archlinux.org/yay.git \
     && cd yay \
@@ -32,7 +32,8 @@ COPY PKGBUILD /home/builduser/PKGBUILD
 # Prepare the build environment and build the package
 USER root
 RUN echo 'PACKAGER="David B. Adrian <dawidh.adrian@gmail.com>"' >> /etc/makepkg.conf \
-    echo 'GPGKEY="4ABA106821FC33C2"' >> /etc/makepkg.conf
+    echo 'GPGKEY="4ABA106821FC33C2"' >> /etc/makepkg.conf \
+    sudo pacman-key --recv-keys 4ABA106821FC33C2
 
 # Switch to the build user
 USER builduser
