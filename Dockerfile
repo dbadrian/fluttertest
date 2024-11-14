@@ -33,7 +33,8 @@ COPY PKGBUILD /home/builduser/PKGBUILD
 USER root
 RUN echo 'PACKAGER="David B. Adrian <dawidh.adrian@gmail.com>"' >> /etc/makepkg.conf \
     echo 'GPGKEY="4ABA106821FC33C2"' >> /etc/makepkg.conf \
-    sudo pacman-key --recv-keys 4ABA106821FC33C2
+    echo -n "$GPGKEY" | base64 --decode | gpg --import \
+    pacman-key --recv-keys 4ABA106821FC33C2
 
 # Switch to the build user
 USER builduser
