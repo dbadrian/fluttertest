@@ -29,7 +29,7 @@ COPY PKGBUILD /home/builduser/PKGBUILD
 
 RUN echo 'PACKAGER="David B. Adrian <dawidh.adrian@gmail.com>"' >> /etc/makepkg.conf \
     echo 'GPGKEY="4ABA106821FC33C2"' >> /etc/makepkg.conf \
-    echo -n "$GPGKEY" | base64 --decode | gpg --importgpg --import
+    echo -n "$GPGKEY" | base64 --decode | gpg --import
 
 # Prepare the build environment and build the package
 RUN cd /home/builduser && makepkg -si --noconfirm --sign
