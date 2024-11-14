@@ -18,7 +18,6 @@ USER builduser
 WORKDIR /home/builduser
 
 RUN echo -n "$GPGKEY" | base64 --decode | gpg --import
-RUN pacman-key --recv-keys 4ABA106821FC33C2
 
 RUN git clone https://aur.archlinux.org/yay.git \
     && cd yay \
@@ -34,9 +33,10 @@ COPY PKGBUILD /home/builduser/PKGBUILD
 USER root
 RUN echo 'PACKAGER="David B. Adrian <dawidh.adrian@gmail.com>"' >> /etc/makepkg.conf \
     echo 'GPGKEY="4ABA106821FC33C2"' >> /etc/makepkg.conf
-
+    
 # Switch to the build user
 USER builduser
+RUN sudo pacman-key --recv-keys 4ABA106821FC33C2
 
 RUN cd /home/builduser && makepkg -si --noconfirm --sign
 
