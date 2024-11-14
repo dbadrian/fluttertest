@@ -11,14 +11,15 @@ RUN pacman -Sy \
 
 # Set up a build user (to avoid building packages as root)
 RUN useradd -m builduser && \
-    echo 'builduser ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+    echo 'builduser ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
+    echo 'PACKAGER="David B. Adrian <dawidh.adrian@gmail.com>"' >> /etc/makepkg.conf \
+    echo 'GPGKEY="4ABA106821FC33C2"' >> /etc/makepkg.conf
 
 # Switch to the build user
 USER builduser
 WORKDIR /home/builduser
 
-RUN echo 'PACKAGER="David B. Adrian <dawidh.adrian@gmail.com>"' >> /etc/makepkg.conf
-RUN echo 'GPGKEY="4ABA106821FC33C2"' >> /etc/makepkg.conf
+
 RUN echo -n "$GPGKEY" | base64 --decode | gpg --import
 
 RUN git clone https://aur.archlinux.org/yay.git \
