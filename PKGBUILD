@@ -44,6 +44,6 @@ package() {
     install -dm755 "${pkgdir}/opt/${_pkgname}"
     install -dm755 "${pkgdir}/usr/bin"
 
-    cp * "$pkgdir/opt/$_pkgname/"
+    cp -r * "$pkgdir/opt/$_pkgname/"
 	ln -s "/opt/$_pkgname/$_pkgname" $pkgdir/usr/bin/$_pkgname
 }
