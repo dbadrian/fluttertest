@@ -41,12 +41,9 @@ package() {
     # cd "$srcdir/$_pkgname/frontend/build/linux/x64/release/bundle"
     cd "$srcdir/$_pkgname/build/linux/x64/release/bundle"
 
-    mkdir -p "$pkgdir/opt/$_pkgname"
-	mkdir -p ${pkgdir}/usr/bin
-    chmod +x $_pkgname 
-    cp $_pkgname "$pkgdir/opt/$_pkgname/"
-	ln -s "$pkgdir/opt/$_pkgname/" ${pkgdir}/usr/bin/$_pkgname
-    cp -r data "$pkgdir/opt/$_pkgname/"
-    cp -r lib "$pkgdir/opt/$_pkgname/"
-    find "$pkgdir/opt/$_pkgname" -type f -exec chmod 644 {} +
+    install -dm755 "${pkgdir}/opt/${pkgname}"
+    install -dm755 "${pkgdir}/usr/bin"
+
+    cp * "$pkgdir/opt/$_pkgname/"
+	ln -s "/opt/$_pkgname/$_pkgname" $pkgdir/usr/bin/$_pkgname
 }
