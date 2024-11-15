@@ -53,8 +53,7 @@ jobs:
           cp ${{ runner.temp }}/*.pkg.tar.zst.sig x86_64/
           git add .
           cd x86_64
-          docker run -v $(pwd):/build --rm archdev /bin/bash -c "repo-add --verify --sign dba.db.tar.gz *.pkg.tar.zst"
-          
+          docker run -v $(pwd):/build --rm archdev /bin/bash -c "repo-add --verify  dba.db.tar.gz *.pkg.tar.zst" 
           git commit -am "Update package ${{ github.event.repository.name }}"
           git push origin main
           
