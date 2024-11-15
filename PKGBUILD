@@ -42,7 +42,10 @@ package() {
     cd "$srcdir/$_pkgname/build/linux/x64/release/bundle"
 
     mkdir -p "$pkgdir/opt/$_pkgname"
+	mkdir -p ${pkgdir}/usr/bin
+    chmod +x $_pkgname 
     cp $_pkgname "$pkgdir/opt/$_pkgname/"
+	ln -s "$pkgdir/opt/$_pkgname/" ${pkgdir}/usr/bin/$_pkgname
     cp -r data "$pkgdir/opt/$_pkgname/"
     cp -r lib "$pkgdir/opt/$_pkgname/"
     find "$pkgdir/opt/$_pkgname" -type f -exec chmod 644 {} +
