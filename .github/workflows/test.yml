@@ -46,7 +46,7 @@ jobs:
 
       - name: push to arch db repo
         run: |
-          cd $GITHUB_WORKSPACE/other-repo
+          cd $GITHUB_WORKSPACE/archrepo
           git config user.name "GitHub Actions Bot"
           git config user.email "<>"
           cp ${{ runner.temp }}/*.pkg.tar.zst .
