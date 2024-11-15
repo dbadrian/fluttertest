@@ -36,6 +36,25 @@ jobs:
           chmod 777 ${{ runner.temp }}
           docker run -v ${{ runner.temp }}:/build --rm archdev /bin/bash -c "cp -r /home/builduser/* /build"
 
+
+      - uses: actions/checkout@v3
+        with:
+          repository: dbadrian/archrepo
+          ref: 'master'
+          path: archrepo
+          token:  ${{ secrets.ARCH_REPO_PUSH_TOKEN }}
+
+      - name: push to arch db repo
+        run: |
+          cd $GITHUB_WORKSPACE/other-repo
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          cp ${{ runner.temp }}/*.pkg.tar.zst .
+          cp ${{ runner.temp }}/*.pkg.tar.zst.sig .
+          git add .
+          git commit -m "Update package ${{ github.event.repository.name }}"
+          git push origin master
+          
       - name: Create Release
         uses: ncipollo/release-action@v1
 
