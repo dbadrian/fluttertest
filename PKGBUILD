@@ -41,7 +41,7 @@ package() {
     # cd "$srcdir/$_pkgname/frontend/build/linux/x64/release/bundle"
     cd "$srcdir/$_pkgname/build/linux/x64/release/bundle"
 
-    install -dm755 "${pkgdir}/opt/${pkgname}"
+    install -dm755 "${pkgdir}/opt/${_pkgname}"
     install -dm755 "${pkgdir}/usr/bin"
 
     cp * "$pkgdir/opt/$_pkgname/"
