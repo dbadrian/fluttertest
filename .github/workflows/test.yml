@@ -53,7 +53,7 @@ jobs:
           cp ${{ runner.temp }}/*.pkg.tar.zst.sig .
           git add .
           git commit -m "Update package ${{ github.event.repository.name }}"
-          git push origin master
+          git push origin main
           
       - name: Create Release
         uses: ncipollo/release-action@v1
